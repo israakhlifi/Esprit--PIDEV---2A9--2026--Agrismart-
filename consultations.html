@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consultations — AgriSmart</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="app/Views/assets/css/agrismart.css">
+</head>
+<body>
+<div class="admin-wrapper">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="app/Views/assets/img/logo.svg" alt="Logo AgriSmart">
+      <span>AgriSmart</span>
+    </div>
+    <nav>
+      <p class="sidebar-label">Principal</p>
+      <ul>
+        <li><a href="dashboard.html"><i class="fa-solid fa-gauge-high"></i> Dashboard</a></li>
+        <li><a href="experts.html"><i class="fa-solid fa-user-tie"></i> Experts</a></li>
+        <li><a href="consultations.html" class="active"><i class="fa-solid fa-comments"></i> Consultations</a></li>
+        <li><a href="rendez_vous.html"><i class="fa-solid fa-calendar-check"></i> Rendez-vous</a></li>
+        <li><a href="conseils.html"><i class="fa-solid fa-lightbulb"></i> Conseils</a></li>
+      </ul>
+      <p class="sidebar-label">Autres modules</p>
+      <ul>
+        <li><a href="#"><i class="fa-solid fa-users"></i> Utilisateurs</a></li>
+        <li><a href="#"><i class="fa-solid fa-seedling"></i> Parcelles</a></li>
+        <li><a href="#"><i class="fa-solid fa-book-open"></i> Ressources</a></li>
+        <li><a href="#"><i class="fa-solid fa-chart-pie"></i> Statistiques</a></li>
+      </ul>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#"><i class="fa-solid fa-arrow-left"></i> Retour au site</a>
+    </div>
+  </aside>
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <div class="main-content">
+    <header class="navbar-admin">
+      <div class="navbar-left">
+        <button class="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+        <span class="page-title">Consultations</span>
+      </div>
+      <div class="navbar-right">
+        <div class="user-info"><div class="name">Admin AgriSmart</div><div class="role">Administrateur</div></div>
+        <button class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Déconnexion</button>
+      </div>
+    </header>
+
+    <main class="page-content">
+
+      <!-- Filtre -->
+      <div class="toolbar">
+        <label class="form-label" style="margin:0;white-space:nowrap"><i class="fa-solid fa-filter"></i> Filtrer :</label>
+        <select id="filterStatut" class="form-control filter-select">
+          <option value="">Tous les statuts</option>
+          <option value="en_attente">En attente</option>
+          <option value="acceptee">Acceptée</option>
+          <option value="refusee">Refusée</option>
+          <option value="terminee">Terminée</option>
+        </select>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2><i class="fa-solid fa-comments"></i> Demandes de consultation</h2>
+          <span style="font-size:.8rem;color:var(--gris)">5 résultat(s)</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>#</th><th>Agriculteur</th><th>Expert</th><th>Sujet</th><th>Date</th><th>Statut</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+              <tr data-statut="en_attente">
+                <td>1</td><td>Mohamed Ali</td><td>Dr. Sami Ben</td><td>Maladie du blé</td><td>2026-11-20</td>
+                <td><span class="badge badge-attente">En attente</span></td>
+                <td style="white-space:nowrap">
+                  <button class="btn btn-secondary btn-sm" onclick="openConsultationDetail({agriculteur:'Mohamed Ali',expert:'Dr. Sami Ben',sujet:'Maladie du blé',date:'2026-11-20',description:'Taches brunes sur les feuilles depuis 2 semaines.',statut:'en_attente'})"><i class="fa-solid fa-eye"></i></button>
+                  <button class="btn btn-primary btn-sm" onclick="alert('Acceptée (simulation)')"><i class="fa-solid fa-check"></i> Accepter</button>
+                  <button class="btn btn-ocre btn-sm" onclick="alert('Refusée (simulation)')"><i class="fa-solid fa-xmark"></i> Refuser</button>
+                  <button class="btn btn-danger btn-sm" onclick="confirmDelete('#','Maladie du blé')"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr data-statut="acceptee">
+                <td>2</td><td>Fatma Zahra</td><td>Ing. Leila K.</td><td>Irrigation goutte-à-goutte</td><td>2026-11-18</td>
+                <td><span class="badge badge-acceptee">Acceptée</span></td>
+                <td style="white-space:nowrap">
+                  <button class="btn btn-secondary btn-sm" onclick="openConsultationDetail({agriculteur:'Fatma Zahra',expert:'Ing. Leila K.',sujet:'Irrigation goutte-à-goutte',date:'2026-11-18',description:'Optimiser pour 3 ha de tomates.',statut:'acceptee'})"><i class="fa-solid fa-eye"></i></button>
+                  <button class="btn btn-danger btn-sm" onclick="confirmDelete('#','Irrigation goutte-à-goutte')"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr data-statut="terminee">
+                <td>3</td><td>Hichem Mrad</td><td>Dr. Sami Ben</td><td>Fertilisation organique</td><td>2026-11-15</td>
+                <td><span class="badge badge-terminee">Terminée</span></td>
+                <td style="white-space:nowrap">
+                  <button class="btn btn-secondary btn-sm" onclick="openConsultationDetail({agriculteur:'Hichem Mrad',expert:'Dr. Sami Ben',sujet:'Fertilisation organique',date:'2026-11-15',description:'Sol sableux déficient en azote.',statut:'terminee'})"><i class="fa-solid fa-eye"></i></button>
+                  <button class="btn btn-danger btn-sm" onclick="confirmDelete('#','Fertilisation organique')"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr data-statut="en_attente">
+                <td>4</td><td>Amira Bensalem</td><td>Ing. Youcef T.</td><td>Rotation des cultures</td><td>2026-11-22</td>
+                <td><span class="badge badge-attente">En attente</span></td>
+                <td style="white-space:nowrap">
+                  <button class="btn btn-secondary btn-sm" onclick="openConsultationDetail({agriculteur:'Amira Bensalem',expert:'Ing. Youcef T.',sujet:'Rotation des cultures',date:'2026-11-22',description:'Blé / légumineuses.',statut:'en_attente'})"><i class="fa-solid fa-eye"></i></button>
+                  <button class="btn btn-primary btn-sm" onclick="alert('Acceptée')"><i class="fa-solid fa-check"></i> Accepter</button>
+                  <button class="btn btn-ocre btn-sm" onclick="alert('Refusée')"><i class="fa-solid fa-xmark"></i> Refuser</button>
+                  <button class="btn btn-danger btn-sm" onclick="confirmDelete('#','Rotation des cultures')"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr data-statut="refusee">
+                <td>5</td><td>Khalil Mansour</td><td>Ing. Leila K.</td><td>Traitement parasites</td><td>2026-11-19</td>
+                <td><span class="badge badge-refusee">Refusée</span></td>
+                <td style="white-space:nowrap">
+                  <button class="btn btn-secondary btn-sm" onclick="openConsultationDetail({agriculteur:'Khalil Mansour',expert:'Ing. Leila K.',sujet:'Traitement parasites',date:'2026-11-19',description:'Acariens sur vigne.',statut:'refusee'})"><i class="fa-solid fa-eye"></i></button>
+                  <button class="btn btn-danger btn-sm" onclick="confirmDelete('#','Traitement parasites')"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+    <footer class="footer-admin">&copy; 2026 AgriSmart — Back Office. Tous droits réservés.</footer>
+  </div>
+</div>
+
+<!-- Modal détail -->
+<div class="modal-overlay" id="modalConsultDetail">
+  <div class="modal-box modal-lg">
+    <div class="modal-header">
+      <h3><i class="fa-solid fa-file-lines"></i> Détail de la consultation</h3>
+      <button class="modal-close" data-modal-close="modalConsultDetail">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="detail-grid">
+        <div class="detail-item"><div class="dt">Agriculteur</div><div class="dd" id="dAgriculteur">—</div></div>
+        <div class="detail-item"><div class="dt">Expert</div><div class="dd" id="dExpert">—</div></div>
+        <div class="detail-item"><div class="dt">Sujet</div><div class="dd" id="dSujet">—</div></div>
+        <div class="detail-item"><div class="dt">Date souhaitée</div><div class="dd" id="dDate">—</div></div>
+        <div class="detail-item"><div class="dt">Statut</div><div class="dd"><span class="badge" id="dStatut">—</span></div></div>
+        <div class="detail-item full"><div class="dt">Description</div><div class="dd" id="dDescription" style="white-space:pre-line">—</div></div>
+      </div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-secondary" data-modal-close="modalConsultDetail">Fermer</button></div>
+  </div>
+</div>
+
+<!-- Modal suppression -->
+<div class="modal-overlay" id="modalConfirmDelete">
+  <div class="modal-box modal-sm">
+    <div class="modal-header">
+      <h3><i class="fa-solid fa-trash"></i> Confirmer la suppression</h3>
+      <button class="modal-close" data-modal-close="modalConfirmDelete">&times;</button>
+    </div>
+    <div class="modal-body"><p id="confirmDeleteMsg"></p></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-modal-close="modalConfirmDelete">Annuler</button>
+      <button class="btn btn-danger" onclick="closeModal('modalConfirmDelete');alert('Suppression simulée.')"><i class="fa-solid fa-trash"></i> Supprimer</button>
+    </div>
+  </div>
+</div>
+
+<script src="app/Views/assets/js/admin-forms.js"></script>
+</body>
+</html>

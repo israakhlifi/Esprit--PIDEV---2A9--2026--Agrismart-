@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — AgriSmart</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="app/Views/assets/css/agrismart.css">
+</head>
+<body>
+<div class="admin-wrapper">
+
+  <!-- ══ SIDEBAR ══════════════════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="app/Views/assets/img/logo.svg" alt="Logo AgriSmart">
+      <span>AgriSmart</span>
+    </div>
+    <nav>
+      <p class="sidebar-label">Principal</p>
+      <ul>
+        <li><a href="dashboard.html" class="active"><i class="fa-solid fa-gauge-high"></i> Dashboard</a></li>
+        <li><a href="experts.html"><i class="fa-solid fa-user-tie"></i> Experts</a></li>
+        <li><a href="consultations.html"><i class="fa-solid fa-comments"></i> Consultations</a></li>
+        <li><a href="rendez_vous.html"><i class="fa-solid fa-calendar-check"></i> Rendez-vous</a></li>
+        <li><a href="conseils.html"><i class="fa-solid fa-lightbulb"></i> Conseils</a></li>
+      </ul>
+      <p class="sidebar-label">Autres modules</p>
+      <ul>
+        <li><a href="#"><i class="fa-solid fa-users"></i> Utilisateurs</a></li>
+        <li><a href="#"><i class="fa-solid fa-seedling"></i> Parcelles</a></li>
+        <li><a href="#"><i class="fa-solid fa-book-open"></i> Ressources</a></li>
+        <li><a href="#"><i class="fa-solid fa-chart-pie"></i> Statistiques</a></li>
+      </ul>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#"><i class="fa-solid fa-arrow-left"></i> Retour au site</a>
+    </div>
+  </aside>
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <!-- ══ MAIN ═════════════════════════════════════════════ -->
+  <div class="main-content">
+
+    <!-- NAVBAR -->
+    <header class="navbar-admin">
+      <div class="navbar-left">
+        <button class="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+        <span class="page-title">Dashboard</span>
+      </div>
+      <div class="navbar-right">
+        <div class="user-info">
+          <div class="name">Admin AgriSmart</div>
+          <div class="role">Administrateur</div>
+        </div>
+        <button class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Déconnexion</button>
+      </div>
+    </header>
+
+    <!-- CONTENU -->
+    <main class="page-content">
+
+      <!-- Cartes statistiques -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon green"><i class="fa-solid fa-user-tie"></i></div>
+          <div class="stat-info"><div class="value">3</div><div class="label">Experts enregistrés</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon ocre"><i class="fa-solid fa-clock"></i></div>
+          <div class="stat-info"><div class="value">2</div><div class="label">Consultations en attente</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon blue"><i class="fa-solid fa-calendar-check"></i></div>
+          <div class="stat-info"><div class="value">2</div><div class="label">Rendez-vous à venir</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon purple"><i class="fa-solid fa-lightbulb"></i></div>
+          <div class="stat-info"><div class="value">3</div><div class="label">Conseils donnés</div></div>
+        </div>
+      </div>
+
+      <!-- Tableau 5 dernières consultations -->
+      <div class="card">
+        <div class="card-header">
+          <h2><i class="fa-solid fa-list-ul"></i> Dernières consultations</h2>
+          <a href="consultations.html" class="btn btn-outline btn-sm">Voir tout <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Agriculteur</th><th>Expert</th><th>Sujet</th><th>Date souhaitée</th><th>Statut</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Mohamed Ali</td><td>Dr. Sami Ben</td><td>Maladie du blé</td><td>2026-11-20</td><td><span class="badge badge-attente">En attente</span></td></tr>
+              <tr><td>Fatma Zahra</td><td>Ing. Leila K.</td><td>Irrigation goutte-à-goutte</td><td>2026-11-18</td><td><span class="badge badge-acceptee">Acceptée</span></td></tr>
+              <tr><td>Hichem Mrad</td><td>Dr. Sami Ben</td><td>Fertilisation organique</td><td>2026-11-15</td><td><span class="badge badge-terminee">Terminée</span></td></tr>
+              <tr><td>Amira Bensalem</td><td>Ing. Youcef T.</td><td>Rotation des cultures</td><td>2026-11-22</td><td><span class="badge badge-attente">En attente</span></td></tr>
+              <tr><td>Khalil Mansour</td><td>Ing. Leila K.</td><td>Traitement parasites</td><td>2026-11-19</td><td><span class="badge badge-refusee">Refusée</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+    <footer class="footer-admin">&copy; 2026 AgriSmart — Back Office. Tous droits réservés.</footer>
+  </div>
+</div>
+<script src="app/Views/assets/js/admin-forms.js"></script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Experts — AgriSmart</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="app/Views/assets/css/agrismart.css">
+</head>
+<body>
+<div class="admin-wrapper">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="app/Views/assets/img/logo.svg" alt="Logo AgriSmart">
+      <span>AgriSmart</span>
+    </div>
+    <nav>
+      <p class="sidebar-label">Principal</p>
+      <ul>
+        <li><a href="dashboard.html"><i class="fa-solid fa-gauge-high"></i> Dashboard</a></li>
+        <li><a href="experts.html" class="active"><i class="fa-solid fa-user-tie"></i> Experts</a></li>
+        <li><a href="consultations.html"><i class="fa-solid fa-comments"></i> Consultations</a></li>
+        <li><a href="rendez_vous.html"><i class="fa-solid fa-calendar-check"></i> Rendez-vous</a></li>
+        <li><a href="conseils.html"><i class="fa-solid fa-lightbulb"></i> Conseils</a></li>
+      </ul>
+      <p class="sidebar-label">Autres modules</p>
+      <ul>
+        <li><a href="#"><i class="fa-solid fa-users"></i> Utilisateurs</a></li>
+        <li><a href="#"><i class="fa-solid fa-seedling"></i> Parcelles</a></li>
+        <li><a href="#"><i class="fa-solid fa-book-open"></i> Ressources</a></li>
+        <li><a href="#"><i class="fa-solid fa-chart-pie"></i> Statistiques</a></li>
+      </ul>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#"><i class="fa-solid fa-arrow-left"></i> Retour au site</a>
+    </div>
+  </aside>
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <div class="main-content">
+    <header class="navbar-admin">
+      <div class="navbar-left">
+        <button class="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+        <span class="page-title">Experts</span>
+      </div>
+      <div class="navbar-right">
+        <div class="user-info"><div class="name">Admin AgriSmart</div><div class="role">Administrateur</div></div>
+        <button class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Déconnexion</button>
+      </div>
+    </header>
+
+    <main class="page-content">
+
+      <div class="toolbar">
+        <div class="search-box" style="flex:1">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="searchExpert" class="form-control"
+                 placeholder="Rechercher par nom, spécialité, région…"
+                 oninput="filterExperts(this.value)">
+        </div>
+        <button class="btn btn-primary" onclick="openAddExpert()">
+          <i class="fa-solid fa-plus"></i> Ajouter un expert
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2><i class="fa-solid fa-user-tie"></i> Liste des experts</h2>
+          <span style="font-size:.8rem;color:var(--gris)" id="expertCount">3 résultat(s)</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>#</th><th>Nom</th><th>Spécialité</th><th>Région</th><th>Disponibilité</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="expertTableBody">
+              <tr data-search="dr sami ben amor phytopathologie tunis">
+                <td>1</td><td>Dr. Sami Ben Amor</td><td>Phytopathologie</td><td>Tunis</td>
+                <td><span class="badge badge-dispo">Disponible</span></td>
+                <td>
+                  <button class="btn btn-outline btn-sm" onclick="openEditExpert({id:1,nom:'Dr. Sami Ben Amor',specialite:'Phytopathologie',region:'Tunis',bio:'Expert en maladies des cultures céréalières.',disponible:1})"><i class="fa-solid fa-pen"></i> Modifier</button>
+                  <button class="btn btn-danger btn-sm" onclick="confirmDelete('#','Dr. Sami Ben Amor')"><i class="fa-solid fa-trash"></i> Supprimer</button>
+                </td>
+              </tr>
+              <tr data-search="ing leila khelifi irrigation sfax">
+                <td>2</td><td>Ing. Leila Khelifi</td><td>Irrigation</td><td>Sfax</td>
+                <td><span class="badge badge-dispo">Disponible</span></td>
+                <td>
+                  <button class="btn btn-outline btn-sm" onclick="openEditExpert({id:2,nom:'Ing. Leila Khelifi',specialite:'Irrigation',region:'Sfax',bio:'Spécialiste en irrigation économique.',disponible:1})"><i class="fa-solid fa-pen"></i> Modifier</button>
+                  <button class="btn btn-danger btn-sm" onclick="confirmDelete('#','Ing. Leila Khelifi')"><i class="fa-solid fa-trash"></i> Supprimer</button>
+                </td>
+              </tr>
+              <tr data-search="ing youcef trabelsi agronomie sousse">
+                <td>3</td><td>Ing. Youcef Trabelsi</td><td>Agronomie générale</td><td>Sousse</td>
+                <td><span class="badge badge-indispo">Indisponible</span></td>
+                <td>
+                  <button class="btn btn-outline btn-sm" onclick="openEditExpert({id:3,nom:'Ing. Youcef Trabelsi',specialite:'Agronomie générale',region:'Sousse',bio:'',disponible:0})"><i class="fa-solid fa-pen"></i> Modifier</button>
+                  <button class="btn btn-danger btn-sm" onclick="confirmDelete('#','Ing. Youcef Trabelsi')"><i class="fa-solid fa-trash"></i> Supprimer</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          <button class="page-btn" disabled><i class="fa-solid fa-chevron-left"></i></button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </div>
+
+    </main>
+    <footer class="footer-admin">&copy; 2026 AgriSmart — Back Office. Tous droits réservés.</footer>
+  </div>
+</div>
+
+<!-- Modal Ajouter / Modifier -->
+<div class="modal-overlay" id="modalExpert">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="modalExpertTitle"><i class="fa-solid fa-user-tie"></i> Ajouter un expert</h3>
+      <button class="modal-close" data-modal-close="modalExpert">&times;</button>
+    </div>
+    <form id="formExpert" onsubmit="submitExpertForm(event)">
+      <div class="modal-body">
+        <input type="hidden" name="expert_id" id="expertId">
+        <div class="form-group">
+          <label class="form-label">Nom complet <span style="color:red">*</span></label>
+          <input type="text" id="expertNom" name="nom" class="form-control" placeholder="Ex : Dr. Ahmed Ben Salah" minlength="3" maxlength="120">
+          <div class="invalid-feedback">Au moins 3 caractères.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Spécialité <span style="color:red">*</span></label>
+          <input type="text" id="expertSpec" name="specialite" class="form-control" placeholder="Ex : Phytopathologie" minlength="3" maxlength="100">
+          <div class="invalid-feedback">3 à 100 caractères.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Région <span style="color:red">*</span></label>
+          <input type="text" id="expertRegion" name="region" class="form-control" placeholder="Ex : Tunis" minlength="2" maxlength="100">
+          <div class="invalid-feedback">2 à 100 caractères.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Bio (optionnel)</label>
+          <textarea id="expertBio" name="bio" class="form-control" rows="3" maxlength="1000" placeholder="Courte présentation…"></textarea>
+          <div class="invalid-feedback">Maximum 1000 caractères.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Disponibilité <span style="color:red">*</span></label>
+          <select id="expertDispo" name="disponible" class="form-control">
+            <option value="1">Disponible</option>
+            <option value="0">Indisponible</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-modal-close="modalExpert">Annuler</button>
+        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal confirmation suppression -->
+<div class="modal-overlay" id="modalConfirmDelete">
+  <div class="modal-box modal-sm">
+    <div class="modal-header">
+      <h3><i class="fa-solid fa-trash"></i> Confirmer la suppression</h3>
+      <button class="modal-close" data-modal-close="modalConfirmDelete">&times;</button>
+    </div>
+    <div class="modal-body"><p id="confirmDeleteMsg"></p></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-modal-close="modalConfirmDelete">Annuler</button>
+      <button class="btn btn-danger" onclick="closeModal('modalConfirmDelete');alert('Suppression simulée.')"><i class="fa-solid fa-trash"></i> Supprimer</button>
+    </div>
+  </div>
+</div>
+
+<script src="app/Views/assets/js/admin-forms.js"></script>
+<script>
+function openAddExpert() {
+  document.getElementById('modalExpertTitle').innerHTML = '<i class="fa-solid fa-user-tie"></i> Ajouter un expert';
+  document.getElementById('expertId').value = '';
+  ['expertNom','expertSpec','expertRegion','expertBio'].forEach(id => { document.getElementById(id).value = ''; document.getElementById(id).classList.remove('is-invalid','is-valid'); });
+  document.getElementById('expertDispo').value = '1';
+  openModal('modalExpert');
+}
+function openEditExpert(data) {
+  document.getElementById('modalExpertTitle').innerHTML = '<i class="fa-solid fa-user-tie"></i> Modifier un expert';
+  document.getElementById('expertId').value     = data.id||'';
+  document.getElementById('expertNom').value    = data.nom||'';
+  document.getElementById('expertSpec').value   = data.specialite||'';
+  document.getElementById('expertRegion').value = data.region||'';
+  document.getElementById('expertBio').value    = data.bio||'';
+  document.getElementById('expertDispo').value  = data.disponible!=null?data.disponible:'1';
+  ['expertNom','expertSpec','expertRegion','expertBio','expertDispo'].forEach(id => document.getElementById(id).classList.remove('is-invalid','is-valid'));
+  openModal('modalExpert');
+}
+function submitExpertForm(e) {
+  e.preventDefault();
+  let valid = true;
+  const nom = document.getElementById('expertNom');
+  const spec = document.getElementById('expertSpec');
+  const region = document.getElementById('expertRegion');
+  const bio = document.getElementById('expertBio');
+  if (nom.value.trim().length < 3) { showError(nom,'Min. 3 caractères.'); valid=false; } else clearError(nom);
+  if (spec.value.trim().length < 3 || spec.value.trim().length > 100) { showError(spec,'3–100 car.'); valid=false; } else clearError(spec);
+  if (region.value.trim().length < 2 || region.value.trim().length > 100) { showError(region,'2–100 car.'); valid=false; } else clearError(region);
+  if (bio.value.trim().length > 1000) { showError(bio,'Max 1000 car.'); valid=false; } else clearError(bio);
+  if (valid) { alert('Expert enregistré.'); closeModal('modalExpert'); }
+}
+function filterExperts(val) {
+  const rows = document.querySelectorAll('#expertTableBody tr'); let count = 0;
+  rows.forEach(r => { const m = r.dataset.search.includes(val.toLowerCase()); r.style.display = m ? '' : 'none'; if(m) count++; });
+  document.getElementById('expertCount').textContent = count + ' résultat(s)';
+}
+</script>
+</body>
+</html>

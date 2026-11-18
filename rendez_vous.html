@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rendez-vous — AgriSmart</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="app/Views/assets/css/agrismart.css">
+</head>
+<body>
+<div class="admin-wrapper">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="app/Views/assets/img/logo.svg" alt="Logo AgriSmart">
+      <span>AgriSmart</span>
+    </div>
+    <nav>
+      <p class="sidebar-label">Principal</p>
+      <ul>
+        <li><a href="dashboard.html"><i class="fa-solid fa-gauge-high"></i> Dashboard</a></li>
+        <li><a href="experts.html"><i class="fa-solid fa-user-tie"></i> Experts</a></li>
+        <li><a href="consultations.html"><i class="fa-solid fa-comments"></i> Consultations</a></li>
+        <li><a href="rendez_vous.html" class="active"><i class="fa-solid fa-calendar-check"></i> Rendez-vous</a></li>
+        <li><a href="conseils.html"><i class="fa-solid fa-lightbulb"></i> Conseils</a></li>
+      </ul>
+      <p class="sidebar-label">Autres modules</p>
+      <ul>
+        <li><a href="#"><i class="fa-solid fa-users"></i> Utilisateurs</a></li>
+        <li><a href="#"><i class="fa-solid fa-seedling"></i> Parcelles</a></li>
+        <li><a href="#"><i class="fa-solid fa-book-open"></i> Ressources</a></li>
+        <li><a href="#"><i class="fa-solid fa-chart-pie"></i> Statistiques</a></li>
+      </ul>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#"><i class="fa-solid fa-arrow-left"></i> Retour au site</a>
+    </div>
+  </aside>
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <div class="main-content">
+    <header class="navbar-admin">
+      <div class="navbar-left">
+        <button class="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+        <span class="page-title">Rendez-vous</span>
+      </div>
+      <div class="navbar-right">
+        <div class="user-info"><div class="name">Admin AgriSmart</div><div class="role">Administrateur</div></div>
+        <button class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Déconnexion</button>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <div style="display:grid;grid-template-columns:1fr 380px;gap:1.5rem;align-items:start">
+
+        <!-- Tableau -->
+        <div class="card">
+          <div class="card-header">
+            <h2><i class="fa-solid fa-calendar-check"></i> Rendez-vous planifiés</h2>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>#</th><th>Consultation</th><th>Agriculteur</th><th>Expert</th><th>Date &amp; Heure</th><th>Mode</th><th>Statut</th><th>Actions</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td><td>Maladie du blé</td><td>Mohamed Ali</td><td>Dr. Sami Ben</td><td>2026-11-25 10:00</td>
+                  <td><i class="fa-solid fa-video" style="color:var(--vert-moyen)"></i> En ligne</td>
+                  <td><span class="badge badge-planifie">Planifié</span></td>
+                  <td style="white-space:nowrap">
+                    <button class="btn btn-outline btn-sm" onclick="openEditRdv({id:1,consultationId:2,date_heure:'2026-11-25T10:00',mode:'en_ligne'})"><i class="fa-solid fa-pen"></i></button>
+                    <button class="btn btn-danger btn-sm" onclick="if(confirm('Annuler ?')) alert('Annulé')"><i class="fa-solid fa-ban"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td><td>Irrigation</td><td>Fatma Zahra</td><td>Ing. Leila K.</td><td>2026-11-28 14:30</td>
+                  <td><i class="fa-solid fa-map-marker-alt" style="color:var(--ocre)"></i> Sur place</td>
+                  <td><span class="badge badge-planifie">Planifié</span></td>
+                  <td style="white-space:nowrap">
+                    <button class="btn btn-outline btn-sm" onclick="openEditRdv({id:2,consultationId:2,date_heure:'2026-11-28T14:30',mode:'sur_place'})"><i class="fa-solid fa-pen"></i></button>
+                    <button class="btn btn-danger btn-sm" onclick="if(confirm('Annuler ?')) alert('Annulé')"><i class="fa-solid fa-ban"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>3</td><td>Fertilisation</td><td>Hichem Mrad</td><td>Dr. Sami Ben</td><td>2026-11-10 09:00</td>
+                  <td><i class="fa-solid fa-video" style="color:var(--vert-moyen)"></i> En ligne</td>
+                  <td><span class="badge badge-termine">Terminé</span></td>
+                  <td><span style="color:var(--gris);font-size:.78rem">—</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Formulaire -->
+        <div class="card">
+          <div class="card-header">
+            <h2 id="formRdvTitle"><i class="fa-solid fa-calendar-plus"></i> Planifier un rendez-vous</h2>
+          </div>
+          <form id="formRdv" onsubmit="submitRdvForm(event)" class="modal-body">
+            <input type="hidden" name="rdv_id" id="rdv_id">
+            <div class="form-group">
+              <label class="form-label">Consultation (acceptée) <span style="color:red">*</span></label>
+              <select name="consultation_id" id="consultation_id" class="form-control">
+                <option value="">— Sélectionner —</option>
+                <option value="2">[#2] Irrigation — Fatma Zahra</option>
+              </select>
+              <div class="invalid-feedback">Sélectionner une consultation.</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Date &amp; Heure <span style="color:red">*</span></label>
+              <input type="datetime-local" name="date_heure" id="date_heure" class="form-control">
+              <div class="invalid-feedback">Date future obligatoire.</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Mode <span style="color:red">*</span></label>
+              <select name="mode" id="mode_rdv" class="form-control">
+                <option value="">— Sélectionner —</option>
+                <option value="en_ligne">En ligne</option>
+                <option value="sur_place">Sur place</option>
+              </select>
+              <div class="invalid-feedback">Sélectionner un mode.</div>
+            </div>
+            <div style="display:flex;gap:.75rem;justify-content:flex-end;padding-top:.5rem">
+              <button type="button" class="btn btn-secondary" id="btnResetRdv"><i class="fa-solid fa-rotate-left"></i> Réinitialiser</button>
+              <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Enregistrer</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </main>
+    <footer class="footer-admin">&copy; 2026 AgriSmart — Back Office. Tous droits réservés.</footer>
+  </div>
+</div>
+
+<script src="app/Views/assets/js/admin-forms.js"></script>
+<script>
+function openEditRdv(data) {
+  document.getElementById('formRdvTitle').innerHTML = '<i class="fa-solid fa-calendar-pen"></i> Modifier le rendez-vous';
+  document.getElementById('rdv_id').value = data.id||'';
+  document.getElementById('consultation_id').value = data.consultationId||'';
+  document.getElementById('date_heure').value = (data.date_heure||'').replace(' ','T').slice(0,16);
+  document.getElementById('mode_rdv').value = data.mode||'';
+  document.getElementById('formRdv').scrollIntoView({behavior:'smooth'});
+}
+function submitRdvForm(e) {
+  e.preventDefault();
+  let valid = true;
+  const c = document.getElementById('consultation_id');
+  const d = document.getElementById('date_heure');
+  const m = document.getElementById('mode_rdv');
+  if (!c.value) { showError(c,'Sélectionner une consultation.'); valid=false; } else clearError(c);
+  if (!d.value || new Date(d.value) <= new Date()) { showError(d,'Date future.'); valid=false; } else clearError(d);
+  if (!m.value) { showError(m,'Sélectionner un mode.'); valid=false; } else clearError(m);
+  if (valid) alert('Rendez-vous enregistré (simulation).');
+}
+document.getElementById('btnResetRdv').addEventListener('click', () => {
+  document.getElementById('formRdvTitle').innerHTML = '<i class="fa-solid fa-calendar-plus"></i> Planifier un rendez-vous';
+  document.getElementById('formRdv').reset();
+});
+</script>
+</body>
+</html>
